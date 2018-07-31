@@ -2976,7 +2976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /pr2_phantom/plan_pick
-  FrameId: '''object'''
+  FrameId: object
   PublishedTransform: {fileID: 1486739346}
 --- !u!114 &323852035
 MonoBehaviour:
