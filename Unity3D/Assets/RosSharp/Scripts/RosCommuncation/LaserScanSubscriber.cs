@@ -1,6 +1,6 @@
 ﻿/*
-© Siemens AG, 2017-2018
-Author: Dr. Martin Bischoff (martin.bischoff@siemens.com)
+© Siemens AG, 2018
+Author: Berkay Alp Cakal (berkay_alp.cakal.ct@siemens.com)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,19 +13,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+using UnityEngine;
 using System;
 
-namespace RosSharp.RosBridgeClient.Protocols
+namespace RosSharp.RosBridgeClient
 {
-    public interface IProtocol
+    public class LaserScanSubscriber : Subscriber<Messages.Sensor.LaserScan>
     {
-        void Connect();
-        void Close();
-        bool IsAlive();
-        void Send(byte[] data);
+        public LaserScanWriter laserScanWriter;
 
-        event EventHandler OnReceive;
-        event EventHandler OnConnected;
-        event EventHandler OnClosed;
+        protected override void Start()
+        {
+            base.Start();
+        }
+
+        protected override void ReceiveMessage(Messages.Sensor.LaserScan laserScan)
+        {
+            laserScanWriter.Write(laserScan);
+        }
+
     }
 }
