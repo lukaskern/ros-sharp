@@ -1,6 +1,6 @@
-/*
-© Lukas Kern, 2018
-Author: Lukas Kern
+﻿/*
+© Siemens AG, 2017-2018
+Author: Dr. Martin Bischoff (martin.bischoff@siemens.com)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,20 +13,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-using Newtonsoft.Json;
+using UnityEngine;
 
-namespace RosSharp.RosBridgeClient.Messages.Geometry
+namespace RosSharp.RosBridgeClient
 {
-    public class PointStamped : Message
+    [RequireComponent(typeof(JoyAxisWriter))]
+    public class JoyAxisInputPasser : MonoBehaviour
     {
-        [JsonIgnore]
-        public const string RosMessageName = "geometry_msgs/PointStamped";
-        public Standard.Header header;
-        public Point point;
-        public PointStamped()
+        public string AxisName;
+        private JoyAxisWriter joyAxisWriter;
+
+        private void Start()
         {
-            header = new Standard.Header();
-            point = new Point();
+            joyAxisWriter = GetComponent<JoyAxisWriter>();
+        }
+        private void Update()
+        {
+            joyAxisWriter.Write(Input.GetAxis(AxisName));
         }
     }
 }
